@@ -17,4 +17,6 @@
     <!-- IMPORT partials/thread_tools.tpl -->
     </div>
     <!-- IMPORT partials/topic/reply-button.tpl -->
+    <!-- IMPORT partials/topic/endorse-button.tpl -->
+
 </div>
