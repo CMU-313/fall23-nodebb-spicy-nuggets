@@ -31,6 +31,7 @@ describe('Post\'s', () => {
     let postData;
     let topicData;
     let cid;
+    let anon;
 
     before((done) => {
         async.series({
@@ -1241,5 +1242,39 @@ describe('Posts\'', async () => {
         files.forEach((filePath) => {
             require(filePath);
         });
+    });
+
+describe('anon tests', () => {
+    it('should create a post under an anonymous user', () => {
+        let uid;
+        let queueId;
+        let topicQueueId;
+        let jar;
+        before((done) => {
+            meta.config.postQueue = 1;
+            user.create({ username: 'newuser' }, (err, _uid) => {
+                assert.ifError(err);
+                uid = _uid;
+                done();
+            });
+        });
+
+        after((done) => {
+            meta.config.postQueue = 0;
+            meta.config.groupsExemptFromPostQueue = [];
+            done();
+        });
+    });
+    it('should create an anonymous reply', (done) => {
+        topics.reply({
+            uid: voterUid,
+            tid: topicData.tid,
+            content: 'raw content',
+            isAnonymous: isAnonymous
+        }, (err, postData) => {
+            assert.ifError(err);
+            assert.equal(isAnonymous, postData.isAnonymous);
+        });
+    });
     });
 });
