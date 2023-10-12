@@ -1245,36 +1245,23 @@ describe('Posts\'', async () => {
     });
 
 describe('anon tests', () => {
-    it('should create a post under an anonymous user', () => {
-        let uid;
-        let queueId;
-        let topicQueueId;
-        let jar;
-        before((done) => {
-            meta.config.postQueue = 1;
-            user.create({ username: 'newuser' }, (err, _uid) => {
-                assert.ifError(err);
-                uid = _uid;
-                done();
-            });
-        });
-
-        after((done) => {
-            meta.config.postQueue = 0;
-            meta.config.groupsExemptFromPostQueue = [];
-            done();
-        });
-    });
-    it('should create an anonymous reply', (done) => {
-        topics.reply({
+    let uid;
+    let queueId;
+    let topicQueueId;
+    let jar;
+    it('should create a post under an anonymous user', (done) => {
+        topics.post({
             uid: voterUid,
-            tid: topicData.tid,
-            content: 'raw content',
-            isAnonymous: isAnonymous
+            cid: cid,
+            title: 'topic to edit',
+            content: 'A post to edit',
+            anon: 'Anonymous'
         }, (err, postData) => {
             assert.ifError(err);
-            assert.equal(isAnonymous, postData.isAnonymous);
+            assert.equal(anon, postData.user.fullname);
         });
+         
+
     });
-    });
+});
 });
