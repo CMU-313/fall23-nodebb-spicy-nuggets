@@ -116,12 +116,14 @@ module.exports = function (Topics) {
         }
         const [
             bookmarks,
+            endorsed,
             voteData,
             userData,
             editors,
             replies,
         ] = await Promise.all([
             posts.hasBookmarked(pids, uid),
+            posts.hasEndorsed(pids, uid),
             posts.getVoteStatusByPostIDs(pids, uid),
             getPostUserData('uid', async uids => await posts.getUserInfoForPosts(uids, uid)),
             getPostUserData('editor', async uids => await user.getUsersFields(uids, ['uid', 'username', 'userslug'])),
@@ -136,6 +138,7 @@ module.exports = function (Topics) {
                 postObj.bookmarked = bookmarks[i];
                 postObj.upvoted = voteData.upvotes[i];
                 postObj.downvoted = voteData.downvotes[i];
+                postObj.endorsed = endorsed[i];
                 postObj.votes = postObj.votes || 0;
                 postObj.replies = replies[i];
                 postObj.selfPost = parseInt(uid, 10) > 0 && parseInt(uid, 10) === postObj.uid;

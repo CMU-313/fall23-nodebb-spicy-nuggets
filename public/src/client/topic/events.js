@@ -19,6 +19,8 @@ define('forum/topic/events', [
         'event:voted': updatePostVotesAndUserReputation,
         'event:bookmarked': updateBookmarkCount,
 
+        'event:endorsed': updateEndorsed,
+
         'event:topic_deleted': threadTools.setDeleteState,
         'event:topic_restored': threadTools.setDeleteState,
         'event:topic_purged': onTopicPurged,
@@ -76,6 +78,16 @@ define('forum/topic/events', [
         const reputationElements = $('.reputation[data-uid="' + data.post.uid + '"]');
         votes.html(data.post.votes).attr('data-votes', data.post.votes);
         reputationElements.html(data.user.reputation).attr('data-reputation', data.user.reputation);
+    }
+
+    function updateEndorsed(data) {
+        $('[data-pid="' + data.post.pid + '"] .endorseBtn').filter(function (index, el) {
+            return parseInt($(el).closest('[data-pid]').attr('data-pid'), 10) === parseInt(data.post.pid, 10);
+        }).html(data.isEndorsed ? 'Unendorse' : 'Endorse').attr('data-endorsed', data.isEndorsed);
+
+        $('[data-pid="' + data.post.pid + '"] .endorse-banner').filter(function (index, el) {
+            return parseInt($(el).closest('[data-pid]').attr('data-pid'), 10) === parseInt(data.post.pid, 10);
+        }).attr('data-endorsed', data.isEndorsed).attr('hidden', !data.isEndorsed);
     }
 
     function updateBookmarkCount(data) {

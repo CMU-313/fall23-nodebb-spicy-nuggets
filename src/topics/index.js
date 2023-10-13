@@ -90,6 +90,8 @@ Topics.getTopicsByTids = async function (tids, options) {
             return data;
         }
 
+        //needs a function here or modify ^ function for anonymous
+
         const [teasers, users, userSettings, categoriesData, guestHandles, thumbs] = await Promise.all([
             Topics.getTeasers(topics, options),
             user.getUsersFields(uids, ['uid', 'username', 'fullname', 'userslug', 'reputation', 'postcount', 'picture', 'signature', 'banned', 'status']),

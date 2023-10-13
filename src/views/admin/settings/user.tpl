@@ -68,6 +68,12 @@
                     <span class="mdl-switch__label"><strong>[[admin/settings/user:show-fullname-as-displayname]]</strong></span>
                 </label>
             </div>
+            <div class="checkbox">
+                <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
+                    <input class="mdl-switch__input" type="checkbox" data-field="showAnonymousAsDisplayName">
+                    <span class="mdl-switch__label"><strong>[[admin/settings/user:show-anonymous-as-displayname]]</strong></span>
+                </label>
+            </div>
         </form>
     </div>
 </div>
