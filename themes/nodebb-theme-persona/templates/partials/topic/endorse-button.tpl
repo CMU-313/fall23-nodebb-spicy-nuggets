@@ -3,7 +3,7 @@
 </div>
 
 <style>
-#Need to fix the privileges for only instructors.
+#Need to fix the privileges for only instructors so they can only endorse.
 </style>
 
 <!-- IF loggedIn -->
