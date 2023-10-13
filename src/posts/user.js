@@ -60,6 +60,18 @@ Posts.getPostSummariesFromSet = async function (set, uid, start, stop) {
     return { posts: posts, nextStart: stop + 1 };
 };
 
+    Posts.overrideGuestHandle = function (postData, handle) {
+        if (meta.config.allowGuestHandles && postData && postData.user && parseInt(postData.uid, 10) === 0 && handle) {
+            postData.user.username = validator.escape(String(handle));
+            if (postData.user.hasOwnProperty('fullname')) {
+                postData.user.fullname = postData.user.username;
+            }
+            if (postData.user.hasOwnProperty('postanonymously')) {
+                postData.user.fullname = "Anonymous";
+            }
+            postData.user.displayname = postData.user.username;
+        }
+    };
 Posts.getPidIndex = async function (pid, tid, topicPostSort) {
     const set = topicPostSort === 'most_votes' ? `tid:${tid}:posts:votes` : `tid:${tid}:posts`;
     const reverse = topicPostSort === 'newest_to_oldest' || topicPostSort === 'most_votes';

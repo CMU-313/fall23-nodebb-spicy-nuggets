@@ -31,6 +31,7 @@ describe('Post\'s', () => {
     let postData;
     let topicData;
     let cid;
+    let anon;
 
     before((done) => {
         async.series({
@@ -1258,4 +1259,25 @@ describe('Posts\'', async () => {
             require(filePath);
         });
     });
+
+describe('anon tests', () => {
+    let uid;
+    let queueId;
+    let topicQueueId;
+    let jar;
+    it('should create a post under an anonymous user', (done) => {
+        topics.post({
+            uid: voterUid,
+            cid: cid,
+            title: 'topic to edit',
+            content: 'A post to edit',
+            anon: 'Anonymous'
+        }, (err, postData) => {
+            assert.ifError(err);
+            assert.equal(anon, postData.user.fullname);
+        });
+         
+
+    });
+});
 });
