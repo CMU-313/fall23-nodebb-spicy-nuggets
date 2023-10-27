@@ -9,7 +9,7 @@ There should be a banner with green text to confirm this.
 Click unendorse
 The banner should disappear
 Click unendorse when it’s already endorsed
-There should be a warning telling the user they cannot do this action.	
+There should be a warning telling the user they cannot do this action.
 
 Automated Tests
 Can be found in src/tests/post.js
